@@ -61,21 +61,78 @@ const StudentDashboard = () => {
   };
 
   // Handle password update
-  const handlePasswordUpdate = (e) => {
+  const handlePasswordUpdate = async (e) => {
     e.preventDefault();
-    // Here you would typically call an API to update the password
-    alert("Password updated successfully");
-    setNewPassword('');
+  
+    // Check if the new password is not empty
+    if (!newPassword) {
+      alert("Password is required");
+      return;
+    }
+  
+    try {
+      // Send the new password to the backend
+      const response = await fetch("http://localhost:5000/api/student/update-password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`, // Get token from localStorage
+        },
+        body: JSON.stringify({ newPassword }), // Send the new password in the request body
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert("Password updated successfully");
+        setNewPassword(""); // Clear the input field
+      } else {
+        alert(data.message || "Failed to update password");
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
+  
 
-  // Handle profile update
-  const handleProfileUpdate = (e) => {
+  const handleProfileUpdate = async (e) => {
     e.preventDefault();
-    // Here you would typically call an API to update the profile
-    alert("Profile updated successfully");
-    setNewDepartment(newDepartment);
-    setNewCourse(newCourse);
+    
+    // Prepare the data to be sent
+    const updatedProfile = {
+      department: newDepartment,
+      course: newCourse,
+    };
+  
+    try {
+      // Send the data to the backend
+      const response = await fetch("http://localhost:5000/api/student/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`, // Make sure the token is in localStorage or cookies
+        },
+        body: JSON.stringify(updatedProfile),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message); // Show success message
+        setStudent((prevState) => ({
+          ...prevState,
+          department: newDepartment,
+          course: newCourse,
+        })); // Update the student info in frontend
+      } else {
+        alert(data.message || "Failed to update profile");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Error updating profile. Please try again.");
+    }
   };
+  
 
   // Handle file download (mock function for now)
   const handleDownload = (fileName) => {

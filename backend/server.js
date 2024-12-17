@@ -111,7 +111,6 @@ app.use(cors({
 app.use('/api/students', studentRoutes);
 app.use('/api/Stlogin',studentRoutes);
 app.use('/api/student',studentRoutes);
-
 // Connect to MongoDB
 connectDB();
 
