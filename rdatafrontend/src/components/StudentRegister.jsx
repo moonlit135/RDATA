@@ -158,7 +158,7 @@ const StudentRegister = () => {
 
     try {
       // Send a POST request to the backend API to register the student
-      const response = await axios.post('http://backend-domain.com/api/auth/register', studentData, {
+      const response = await axios.post('http://localhost:5000/api/students/register', studentData, {
         headers: {
           'Content-Type': 'application/json',
         },

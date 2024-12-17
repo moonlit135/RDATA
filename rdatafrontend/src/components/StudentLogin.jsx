@@ -91,11 +91,16 @@ const StudentLogin = () => {
     
     // Attempt login via API
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('http://localhost:5000/api/Stlogin/login', { email, password });
+      console.log("api call hoise");
       
-      if (response.data.success) {
+      if (response.data.message === "Login successful") {
         // If login is successful, navigate to the student dashboard
-        navigate("/StudentDashboard");
+        console.log("yaat paisu", response.data);
+        // Store the token in localStorage
+        console.log("apna token", response.data.token);
+        localStorage.setItem("token", response.data.token);  // Save the token
+        navigate("/studentdashboard");
       } else {
         // If login fails, display the error message from the server
         setError(response.data.message);

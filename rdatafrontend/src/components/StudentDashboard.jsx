@@ -8,9 +8,9 @@ const StudentDashboard = () => {
   // States to hold student details
   const [student, setStudent] = useState({
     name: "",
-    email: "@tezu.edu.in",
-    department: "Computer Science",
-    course: " ",
+    email: "",
+    department: "",
+    course: "",
   });
 
   const [newPassword, setNewPassword] = useState('');
@@ -26,16 +26,25 @@ const StudentDashboard = () => {
     fetchStudentData();
   }, []);
 
-  // Mock function to simulate API call for fetching student data
-  const fetchStudentData = () => {
-    // Replace this with actual API call to fetch student data
-    // Example: fetchStudentDataFromAPI();
-    setStudent({
-      name: "",
-      email: "@tezu.edu.in",
-      department: "Computer Science",
-      course: "",
+  // Fetch student data from backend
+  const fetchStudentData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/student/dashboard", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`, // Make sure the token is stored in localStorage or cookies
+        },
     });
+
+    const data = await response.json();
+      if (response.ok) {
+        setStudent(data.student); // Update state with student data
+      } else {
+        console.error(data.message || "Failed to fetch student data");
+      }
+    } catch (error) {
+      console.error("Error fetching student data:", error);
+    }
 
     // Mocking file data
     setFiles([
@@ -47,8 +56,8 @@ const StudentDashboard = () => {
 
   // Handle logout
   const handleLogout = () => {
-    // Clear session and navigate to login page
-    navigate("/StudentLogin");
+    localStorage.removeItem("token"); // Remove token from localStorage
+    navigate("/StudentLogin"); // Navigate to login page
   };
 
   // Handle password update
