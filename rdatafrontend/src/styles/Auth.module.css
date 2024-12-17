@@ -1,0 +1,104 @@
+.authWrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.authHeader {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.authLogo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.authCard {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.title {
+    margin-bottom: 30px;
+    color: var(--gradient-start);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    text-align: left;
+    margin-bottom: 5px;
+    color: var(--gradient-start);
+    font-weight: 600;
+}
+
+.input {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--gradient-start);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.button {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 10px 0;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+.link {
+    color: var(--gradient-start);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: var(--gradient-end);
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .authCard {
+        padding: 20px;
+    }
+}
